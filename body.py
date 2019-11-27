@@ -18,24 +18,42 @@ def merge(conf):
     exit()
 
 
-decision = 0
+# decision = 0
 
 
-def user_decision():
+def test_decision(local_decision):
+    # akceptowalne tylko liczby z okreslonego przedzialu
+    if local_decision.isdigit():
+        if float(local_decision) in [1, 2, 3]:
+            return local_decision
+        else:
+            print("Podano liczbę spoza zakresu!")
+            return "Podano liczbę spoza zakresu!"
+    else:
+        print("Podano literę zamiast liczby!")
+        return "Podano literę zamiast liczby!"
+
+
+def create_instance(ver,prev):
+    ver = input("Podaj numer wersji (np. 13.0):")
+    prev = input("Podaj numer poprzedniej wersji (np. 14.0):")
+    if all(ver.isdigit(), prev.isdigit()):
+        if float(prev) <= float(ver):
+            print ("Poprzednia wersja nie może mieć wyższego numeru niż obecna!")
+            return "Poprzednia wersja nie może mieć wyższego numeru niż obecna!"
+
+
+if __name__ == '__main__':
+
+
     # Wybor przez usera co bedzie generowane. Zaimplementowane narazie jedynie polowicznie 1.
     print("CIS-COS Generator ver. 1.0\n")
     print("""1 - Generacja pelnego opisu interfejsu CIS-COS\n
             2 - Porownanie dwoch wersji CIS-COS (nie zaimplementowane)\n
             3 - XML z logika dla MDC (nie zaimplementowane)""")
-    while True:
-        global decision
-        decision = input("Wybierz opcje (podaj numer):")
-        # akceptowalne tylko liczby z przedzialu
-        # tymczasowo blad w momencie podania litery
-        if all ([decision.isdigit(), float(decision) in [1,2,3]]): break
-        print ("Niewlasciwa opcja, sproboj ponownie")
-if __name__ == '__main__':
-    user_decision()
+    decision = input("Wybierz opcje (podaj numer):")
+    test_decision(decision)
+
 
     if float(decision) == 1:
         try:
